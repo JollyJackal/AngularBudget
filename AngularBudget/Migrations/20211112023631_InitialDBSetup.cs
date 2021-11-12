@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AngularBudget.Data.Migrations
+#nullable disable
+
+namespace AngularBudget.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitialDBSetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +13,7 @@ namespace AngularBudget.Data.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -25,7 +27,7 @@ namespace AngularBudget.Data.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -58,7 +60,7 @@ namespace AngularBudget.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50720, nullable: false)
+                    Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -72,11 +74,11 @@ namespace AngularBudget.Data.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Version = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Use = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: true),
+                    Use = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Algorithm = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     IsX509Certificate = table.Column<bool>(type: "bit", nullable: false),
                     DataProtected = table.Column<bool>(type: "bit", nullable: false),
-                    Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50720, nullable: false)
+                    Data = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,7 +98,7 @@ namespace AngularBudget.Data.Migrations
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Expiration = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ConsumedTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50720, nullable: false)
+                    Data = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +111,7 @@ namespace AngularBudget.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -130,7 +132,7 @@ namespace AngularBudget.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -152,7 +154,7 @@ namespace AngularBudget.Data.Migrations
                     LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,8 +171,8 @@ namespace AngularBudget.Data.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,7 +195,7 @@ namespace AngularBudget.Data.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
