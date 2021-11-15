@@ -1,0 +1,40 @@
+<h1 id="tableLabel">User Budget</h1>
+
+<p>Show or add User Budget</p>
+
+<p *ngIf="loading"><em>Loading...</em></p>
+
+<div class="border rounded p-3" *ngIf="!loading && userBudget">
+  <div class="row row-cols-lg-auto g-3 align-items-center">
+    <div class="col-12">
+      <label>Your budget will restart every period of: </label>
+    </div>
+    <div class="col-12">
+      <label>{{ userBudget.frequencyAmount }}</label>
+    </div>
+    <div class="col-12">
+      <label>{{ getFrequencyById(userBudget.frequencyId) }}</label>
+    </div>
+  </div>
+</div>
+
+<div class="border rounded p-3" *ngIf="!loading && (userBudget == null)">
+  <h3>Add User Budget</h3>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row row-cols-lg-auto g-3 align-items-center">
+    <div class="col-12">
+      <label>Budget restarts every</label>
+    </div>
+    <div class="col-12">
+      <input formControlName="frequencyAmount" type="number" class="form-control" id="frequencyAmount">
+    </div>
+    <div class="col-12">
+      <select formControlName="frequencies" id="frequencies" class="form-select">
+        <option *ngFor="let frequency of frequencies" [value]="frequency.frequencyId">{{frequency.frequencyName}}</option>
+      </select>
+      <!--<div *ngIf="f.frequency.touched && f.frequency.invalid" class="alert alert-danger">
+        <div *ngIf="f.frequency.errors && f.frequency.errors.required">Frequency is required.</div>
+      </div>-->
+    </div>
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+  </form>
+</div>

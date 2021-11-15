@@ -56,5 +56,7 @@ namespace AngularBudget.Data
 
             base.OnModelCreating(modelBuilder);
         }
+        public DbSet<AngularBudget.Models.UserBudget> UserBudget { get; set; }
+        public DbSet<AngularBudget.Models.Frequency> Frequency { get; set; }
     }
 }

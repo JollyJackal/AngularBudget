@@ -23,8 +23,9 @@ builder.Services.AddIdentityServer()
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddControllers();
+//builder.Services.AddControllersWithViews();
+//builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -47,10 +48,11 @@ app.UseAuthentication();
 app.UseIdentityServer();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-app.MapRazorPages();
+app.MapControllers();
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller}/{action=Index}/{id?}");
+//app.MapRazorPages();
 
 app.MapFallbackToFile("index.html"); ;
 
